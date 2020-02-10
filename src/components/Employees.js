@@ -30,57 +30,75 @@ let state = {
     <td>@twitter</td>
 </tr> */}
 
-// class Employee extends Component {
-//     state = {
-//       search: "",
-//       breeds: [],
-//       results: [],
-//       error: ""
-//     };
-  
-//     // When the component mounts, get a list of all available base breeds and update this.state.breeds
-//     componentDidMount() {
-//       API.getBaseBreedsList()
-//         .then(res => this.setState({ breeds: res.data.message }))
-//         .catch(err => console.log(err));
-//     }
-  
-//     handleInputChange = event => {
-//       this.setState({ search: event.target.value });
-//     };
-  
-//     handleFormSubmit = event => {
-//       event.preventDefault();
-//       API.getDogsOfBreed(this.state.search)
-//         .then(res => {
-//           if (res.data.status === "error") {
-//             throw new Error(res.data.message);
-//           }
-//           this.setState({ results: res.data.message, error: "" });
-//         })
-//         .catch(err => this.setState({ error: err.message }));
-//     };
-//     render() {
-//       return (
-//         <div>
-//           <Container style={{ minHeight: "80%" }}>
-//             <h1 className="text-center">Search By Breed!</h1>
-//             <Alert
-//               type="danger"
-//               style={{ opacity: this.state.error ? 1 : 0, marginBottom: 10 }}
-//             >
-//               {this.state.error}
-//             </Alert>
-//             <SearchForm
-//               handleFormSubmit={this.handleFormSubmit}
-//               handleInputChange={this.handleInputChange}
-//               breeds={this.state.breeds}
-//             />
-//             <SearchResults results={this.state.results} />
-//           </Container>
-//         </div>
-//       );
-//     }
-//   }
+class Employee extends Component {
+    // state = {
+    //   search: "",
+    //   breeds: [],
+    //   results: [],
+    //   error: ""
+    // };
 
-// export default Employee
+    // // When the component mounts, get a list of all available base breeds and update this.state.breeds
+    // componentDidMount() {
+    //   API.getBaseBreedsList()
+    //     .then(res => this.setState({ breeds: res.data.message }))
+    //     .catch(err => console.log(err));
+    // }
+
+    // handleInputChange = event => {
+    //   this.setState({ search: event.target.value });
+    // };
+
+    // handleFormSubmit = event => {
+    //   event.preventDefault();
+    //   API.getDogsOfBreed(this.state.search)
+    //     .then(res => {
+    //       if (res.data.status === "error") {
+    //         throw new Error(res.data.message);
+    //       }
+    //       this.setState({ results: res.data.message, error: "" });
+    //     })
+    //     .catch(err => this.setState({ error: err.message }));
+    // };
+    render() {
+        return (
+<>
+            <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>2</td>
+                <td>2</td>
+                <td>2</td>
+                <td>2</td>
+                <td>2</td>
+                <td>2</td>
+                <td>2</td>
+                <td>2</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>3</td>
+                <td>3</td>
+                <td>3</td>
+                <td>3</td>
+                <td>3</td>
+                <td>3</td>
+                <td>3</td>
+                <td>3</td>
+            </tr>
+            </>
+      );
+    }
+}
+
+export default Employee
