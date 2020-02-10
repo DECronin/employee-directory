@@ -1,6 +1,7 @@
 import React from "react";
 // import API from "../../utils/API"
 
+// turn into class for state
 function Rows() {
     let maxEmployees = 10;
     let employeeArray = [];
@@ -26,6 +27,9 @@ function Rows() {
             <td>{i}</td>
         </tr>)
     }
+
+    // map or filter to update state
+    
   return (<>
     {employeeArray}
   </>)

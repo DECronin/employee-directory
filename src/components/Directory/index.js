@@ -9,21 +9,15 @@ function Directory() {
             <thead>
                 <tr>
                     {/* add buttons/nav for sorting and filtering? */}
-                    <th>ID:</th>
-                    {/* ^ sort */}
+                    <th>ID: <button>S</button></th>
                     <th>Username:</th>
-                    <th>Name: (Last, First)</th>
-                    {/* ^ sort */}
-                    <th>Status:</th>
-                    {/* ^ filter */}
-                    <th>Department:</th>
-                    {/* ^ filter */}
-                    <th>Location:</th>
-                    {/* ^ filter */}
+                    <th>Name: (Last, First) <button>S</button></th>
+                    <th>Status: <button>F</button></th>
+                    <th>Department: <button>F</button></th>
+                    <th>Location: <button>F</button></th>
                     <th>Phone:</th>
                     <th>Email:</th>
-                    <th>Age:</th>
-                    {/* ^ sort */}
+                    <th>Age: <button>S</button></th>
                 </tr>
             </thead>
             <tbody>
