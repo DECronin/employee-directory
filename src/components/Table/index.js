@@ -1,6 +1,9 @@
-import Table from 'react-bootstrap/Table'
+import React from 'react';
+// import Table from 'react-bootstrap/Table'
 
-{/* <Table striped bordered hover size="sm">
+function Table() {
+{/* <Table striped bordered hover size="sm"> */}
+return <>
   <thead>
     <tr>
       <th>#</th>
@@ -28,6 +31,9 @@ import Table from 'react-bootstrap/Table'
       <td>@twitter</td>
     </tr>
   </tbody>
-</Table> */}
+  </>
+// </Table>
+
+}
 
 export default Table
