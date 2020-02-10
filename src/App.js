@@ -1,7 +1,6 @@
 import React from 'react';
 import Wrapper from "./components/Wrapper";
-import Table from "./components/Table";
-// import employeeDir from "./components/Employees";
+import Directory from "./components/Directory";
 import Header from "./components/Header";
 import './App.css';
 
@@ -10,8 +9,7 @@ function App() {
     <div className="App">
       <Wrapper>
         <Header />
-        <Table />
-        {/* <employeeDir /> */}
+        <Directory />
       </Wrapper>
     </div>
   );

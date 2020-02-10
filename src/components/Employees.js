@@ -1,10 +1,6 @@
 import React from 'react';
 
 // Generate ___ employees
-// steve has an api for us?
-// import Faker?
-// no back end database 
-
 let state = {
     fistName: '',
     lastName: '',
@@ -18,9 +14,7 @@ let state = {
     department: '',
     location: ''
 }
-// employeeDir
-
-// class Search extends Component {
+// class Employee extends Component {
 //     state = {
 //       search: "",
 //       breeds: [],
@@ -73,4 +67,4 @@ let state = {
 //     }
 //   }
 
-export default employeeDir
+// export default Employee
