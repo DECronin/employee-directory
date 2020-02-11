@@ -8,7 +8,8 @@ class Directory extends Component {
         default: [],
         currentEmployees: [],
         filterOptions: [],
-        filterSpecs: []
+        filterSpecs: [],
+        filtersVisible: false
     };
     populateRows = () => {
         // console.log(`topPop::\n${JSON.stringify(this.state.currentEmployees[0])}`);
@@ -86,18 +87,18 @@ class Directory extends Component {
             }
         })
         if (push) {
-            this.setState({filterOptions: options, filterSpecs: [col1, col2]})
+            this.setState({filterOptions: options, filterSpecs: [col1, col2], filtersVisible: true})
         }
     };
     opFiltersDiv = () => {
-        let opList = [];
+        let opList = [<Button onClick={() => this.reset()}>Reset</Button>];
         this.state.filterOptions.forEach(li => {
             opList.push(
                 <Button key={li} onClick={() => this.filter(li)}>{li}</Button>
             )
         })
-        if (this.state.filterOptions.length === opList.length){
-            return opList
+        if (this.state.filterOptions.length === opList.length - 1){
+            return this.state.filtersVisible ? opList : ''
         }
     }
     opDisplayRenderings = (type, c1, c2) => {
@@ -106,7 +107,7 @@ class Directory extends Component {
             </div>)
     };
     reset() {
-        this.setState({ currentEmployees: this.state.default, filterOptions: [], filterSpecs: [] })
+        this.setState({ currentEmployees: this.state.default, filterOptions: [], filterSpecs: [], filtersVisible: false })
     };
     componentDidMount() {
         API.mergeDatabase().then(res => {
@@ -135,10 +136,7 @@ class Directory extends Component {
     }
     render() {
         return (<>
-            <div>
-                <Button onClick={() => this.reset()}>Reset</Button>
-                <div>{this.opFiltersDiv()}</div>
-            </div>
+            <div>{this.opFiltersDiv()}</div>
             <Table striped bordered hover variant="dark">
                 <thead>
                     <tr>
