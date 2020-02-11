@@ -5,10 +5,12 @@
 
 ## **How To Use:**
 > _"S"_ -!- Button **Sorts** the Table's Visible Data By the Associating Category 
-> >_In Assending Order :|: 1 -> 2 | A -> Z_
+> >_In Assending Order : | : 1 -> 2 | A -> Z_
 
 > _"F"_ -!- Button **Filters** Through the Table's Visible Data And Provides More Buttons Above Table.
-> > These Buttons Share the Filtering Specifications Available Associated to the Category by Which _This - 'F'_ - Button was Pressed.
+> > These Buttons Share the Filtering Specifications Available Associated to the Category <br/>
+> > by Which _This - 'F'_ - Button was Pressed. <br/>
+> > _"Status_ : | : _"Floor Rep." | "Trainee" | "General Manager" | ect._
 
  **~~>>~~ These Sorting and Filtering Processes _Can_ Be 'Nested' or Repeated ~~<<~~** 
 
