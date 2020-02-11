@@ -9,21 +9,21 @@ class Directory extends Component {
         currentEmployees: []
     };
     populateRows = () => {
-        console.log(`topPop::\n${JSON.stringify(this.state.currentEmployees)}`);
+        // console.log(`topPop::\n${JSON.stringify(this.state.currentEmployees[0])}`);
         let newArray = [];
         this.state.currentEmployees.forEach(em => {
-            console.log(JSON.stringify(em));
-            newArray.push(<tr>
+            // console.log(JSON.stringify(em));
+            newArray.push(<tr key={em.index}>
                 {/* id */}
-                <td>{em.index}</td>
+                <td>{em.index + 1}</td>
                 {/* username */}
                 <td>{em.login.username}</td>
                 {/* name (last, first) */}
                 <td>{em.name.last}, {em.name.first}</td>
                 {/* status */}
-                <td>"Status"</td>
+                <td>{em.stats.status}</td>
                 {/* dep */}
-                <td>"DEP"</td>
+                <td>{em.stats.department}</td>
                 {/* location */}
                 <td>{em.location.city}, {em.location.state}</td>
                 {/* phone */}
@@ -36,9 +36,28 @@ class Directory extends Component {
         })
         return newArray
     };
-    // sort = col => {
-    //     this.state.employees = this.state.employees.map(col)
-    // };
+    sort = (col1, col2) => {
+        let data = this.state.currentEmployees;
+        console.log(`sortBy:: ~~~~ :: ${col1} + ${col2}\n\n`);
+        // console.log(JSON.stringify(data))
+        let sortedData;
+        if(col2 && data){
+            sortedData = data.sort(function(obj1, obj2) {
+                return (
+                    obj1[col1][col2] - obj2[col1][col2]
+                );
+            })
+        } else if (data) {
+            sortedData = data.sort(function(obj1, obj2) {
+                return (
+                    obj1[col1] - obj2[col1]
+                );
+            })
+        };
+        // let sorted = this.state.currentEployees.sort((a, b) => a[col1][col2] - b[col1][col2]);
+        // console.log(`sorted by:: ${col1}.${col2}\n${JSON.stringify(sorted)}`)
+        // this.setState({employees: sortedData})
+    };
     // filter = col => {
     //     this.state.employees = this.state.employees.filter(col)
     // };
@@ -47,11 +66,29 @@ class Directory extends Component {
     // };
     componentDidMount() {
         API.mergeDatabase().then(res => {
-            this.setState({
-                default: res.data.results,
-                currentEmployees: res.data.results
-            })
+            const arrayData = res.data.results;
+            let push = false
+            for(let i = 0; i < arrayData.length; i++){
+                arrayData[i].index = i
+                arrayData[i].stats = this.statusAndDepartment();
+                // console.log(`${i}~~~${JSON.stringify(arrayData.stats)}`);
+                push = i === 24 ? true : false;
+            }
+            if (push){
+                this.setState({
+                    default: arrayData,
+                    currentEmployees: arrayData
+                })
+            }
         })
+    }
+    statusAndDepartment = () => {
+        const statuses = ["Dept. Manager", "General Manager", "Cashier/Associate", "Floor Rep.", "Trainee"];
+        const departments = ["Customer Service", "Home Goods", "Consumables", "Office", "Holiday", "Rec/Hobby", "Apparel"];
+        return {
+            status: statuses[Math.floor(Math.random()*statuses.length)],
+            department: departments[Math.floor(Math.random()*departments.length)]
+        }
     }
     render() {
         return (<>
@@ -59,11 +96,12 @@ class Directory extends Component {
                 <thead>
                     <tr>
                         {/* add reset button */}
-                        <th>ID: <button>S</button></th>
+                        <th>ID: <button onClick={this.sort('index')}>S</button></th>
                         {/* onClick={this.sort('id')} */}
                         <th>Username:</th>
-                        <th>Name: (Last, First) <button>S</button></th>
-                        {/* onClick={this.sort('lastName')} */}
+                        <th>Name: (Last, First)</th>
+                         {/* <button onClick={this.sort('name', 'last')} >S</button> */}
+                        {/**/}
                         <th>Status: <button>F</button></th>
                         {/* onClick={this.filter('status')} */}
                         <th>Department: <button>F</button></th>
@@ -72,8 +110,8 @@ class Directory extends Component {
                         {/* onClick={this.filter('location')} */}
                         <th>Phone:</th>
                         <th>Email:</th>
-                        <th>Age: <button>S</button></th>
-                        {/* onClick={this.sort('age')} */}
+                        <th>Age:</th>
+                        {/* onClick={this.sort('age')} <button onClick={this.sort('dob', 'age')}>S</button> */}
                     </tr>
                 </thead>
                 <tbody>
