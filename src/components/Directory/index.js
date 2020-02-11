@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import API from "../../utils/API";
-import Table from 'react-bootstrap/Table'
+import { Button, Table } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 class Directory extends Component {
     state = {
         default: [],
-        currentEmployees: []
+        currentEmployees: [],
+        filterOptions: [],
+        filterSpecs: []
     };
     populateRows = () => {
         // console.log(`topPop::\n${JSON.stringify(this.state.currentEmployees[0])}`);
@@ -38,15 +40,12 @@ class Directory extends Component {
     };
     sort = (col1, col2) => {
         let data = this.state.currentEmployees;
-        console.log(`sortBy:: ~~~~ :: ${col1} + ${col2}\n\n`);
-        // console.log(JSON.stringify(data))
         let sortedData;
-        if(col2 && data){
+        if(col2 && data){// && Number.isInteger(data[0][col1][col2])
             sortedData = data.sort(function(obj1, obj2) {
-                return (
-                    obj1[col1][col2] - obj2[col1][col2]
-                );
-            })
+                let num = Number.isInteger(data[0][col1][col2])? obj1[col1][col2] - obj2[col1][col2] : obj1[col1][col2].charCodeAt(0) - obj2[col1][col2].charCodeAt(0)
+                return num;
+            })            
         } else if (data) {
             sortedData = data.sort(function(obj1, obj2) {
                 return (
@@ -54,16 +53,61 @@ class Directory extends Component {
                 );
             })
         };
-        // let sorted = this.state.currentEployees.sort((a, b) => a[col1][col2] - b[col1][col2]);
-        // console.log(`sorted by:: ${col1}.${col2}\n${JSON.stringify(sorted)}`)
-        // this.setState({employees: sortedData})
+        if (sortedData.length > 0) {
+            this.setState({currentEmployees: sortedData});
+        }
     };
-    // filter = col => {
-    //     this.state.employees = this.state.employees.filter(col)
-    // };
-    // reset() {
-    //     this.setState({ currentEmployees: this.state.default })
-    // };
+    filter = comp => {
+        let col1;
+        let col2;
+        if (this.state.filterSpecs){
+            col1 = this.state.filterSpecs[0];
+            col2 = this.state.filterSpecs[1];
+        }
+        let data = this.state.currentEmployees;
+        let filteredData;
+        filteredData = data.filter(e => e[col1][col2] === comp)          
+        if (filteredData.length > 0){
+            this.setState({currentEmployees: filteredData, filterSpecs: [], filterOptions: []})
+        }
+    };
+    filterOptions = (col1, col2) => {
+        let options = [];
+        let push = false;
+        let indexCounter = 0
+        this.state.currentEmployees.forEach(em => {
+            let arLength = this.state.currentEmployees.length;
+            if(!options.includes(em[col1][col2])){
+                options.push(em[col1][col2])
+            }
+            indexCounter++;
+            if (indexCounter === arLength){
+                push = true
+            }
+        })
+        if (push) {
+            this.setState({filterOptions: options, filterSpecs: [col1, col2]})
+        }
+    };
+    opFiltersDiv = () => {
+        let opList = [];
+        this.state.filterOptions.forEach(li => {
+            opList.push(
+                <Button key={li} onClick={() => this.filter(li)}>{li}</Button>
+            )
+        })
+        if (this.state.filterOptions.length === opList.length){
+            return opList
+        }
+    }
+    opDisplayRenderings = (type, c1, c2) => {
+        return (<div>
+                <Button id={`${type}Display`} onClick={() => this.filterOptions(c1, c2)} type="button">F</Button>
+            </div>)
+    };
+    reset() {
+        this.setState({ currentEmployees: this.state.default, filterOptions: [], filterSpecs: [] })
+    };
     componentDidMount() {
         API.mergeDatabase().then(res => {
             const arrayData = res.data.results;
@@ -71,7 +115,6 @@ class Directory extends Component {
             for(let i = 0; i < arrayData.length; i++){
                 arrayData[i].index = i
                 arrayData[i].stats = this.statusAndDepartment();
-                // console.log(`${i}~~~${JSON.stringify(arrayData.stats)}`);
                 push = i === 24 ? true : false;
             }
             if (push){
@@ -92,26 +135,22 @@ class Directory extends Component {
     }
     render() {
         return (<>
+            <div>
+                <button onClick={() => this.reset()}>Revert Back to Full List</button>
+                <div>{this.opFiltersDiv()}</div>
+            </div>
             <Table striped bordered hover variant="dark">
                 <thead>
                     <tr>
-                        {/* add reset button */}
-                        <th>ID: <button onClick={this.sort('index')}>S</button></th>
-                        {/* onClick={this.sort('id')} */}
+                        <th>ID: <Button onClick={() => this.sort('index')}>S</Button></th>
                         <th>Username:</th>
-                        <th>Name: (Last, First)</th>
-                         {/* <button onClick={this.sort('name', 'last')} >S</button> */}
-                        {/**/}
-                        <th>Status: <button>F</button></th>
-                        {/* onClick={this.filter('status')} */}
-                        <th>Department: <button>F</button></th>
-                        {/* onClick={this.filter('dep')} */}
-                        <th>Location: <button>F</button></th>
-                        {/* onClick={this.filter('location')} */}
+                        <th>Name: (Last, First) <Button onClick={() => this.sort('name', 'last')} >S</Button> </th>
+                        <th>Status: {this.opDisplayRenderings('Status', 'stats', 'status')}</th>
+                        <th>Department: {this.opDisplayRenderings('Dept', 'stats', 'department')}</th>
+                        <th>Location: {this.opDisplayRenderings('Loc', 'location', 'city')}</th>
                         <th>Phone:</th>
                         <th>Email:</th>
-                        <th>Age:</th>
-                        {/* onClick={this.sort('age')} <button onClick={this.sort('dob', 'age')}>S</button> */}
+                        <th>Age: <Button onClick={() => this.sort('dob', 'age')}>S</Button> </th>
                     </tr>
                 </thead>
                 <tbody>
