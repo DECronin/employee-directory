@@ -2,7 +2,7 @@ import React from 'react';
 
 function Header(){
     return (<>
-        <h1>Successfull Connection</h1>
+        <h1>Employee Directory</h1>
     </>)
 }
 
