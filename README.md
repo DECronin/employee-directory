@@ -12,7 +12,7 @@
 > > by Which _This - 'F'_ - Button was Pressed. <br/>
 > > _"Status_ : | : _"Floor Rep." | "Trainee" | "General Manager" | ect._
 
- **~~>>~~ These Sorting and Filtering Processes _Can_ Be 'Nested' or Repeated ~~<<~~** 
+>  **~~>>~~ These Sorting and Filtering Processes _Can_ Be 'Nested' or Repeated ~~<<~~** 
 
 > _"Reset"_ -!- Button Returns the Current Table Back to its Original State _(containing the same data)_.
 
