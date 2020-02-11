@@ -136,7 +136,7 @@ class Directory extends Component {
     render() {
         return (<>
             <div>
-                <button onClick={() => this.reset()}>Revert Back to Full List</button>
+                <Button onClick={() => this.reset()}>Reset</Button>
                 <div>{this.opFiltersDiv()}</div>
             </div>
             <Table striped bordered hover variant="dark">
