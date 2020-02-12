@@ -4,10 +4,10 @@
 ### [_Concept / Requirements:_](https://github.com/UCF-Coding-Boot-Camp/UCF-LKM-FSF-PT-08-2019-U-C/tree/master/new_curriculum/19-React/02-Homework)
 
 ## **How To Use:**
-> _"S"_ -!- Button **Sorts** the Table's Visible Data By the Associating Category 
+> _Category Button(s) with ![a-z](./public/a-z-icon.png) or ![1-9](./public/1-9-icon.png) -!-_ **Sort** the Table's Visible Data By the Associating Category 
 > >_In Assending Order : | : 1 -> 2 | A -> Z_
 
-> _"F"_ -!- Button **Filters** Through the Table's Visible Data And Provides More Buttons Above Table.
+> _Category Button(s) with ![filter-icon](./public/filter-icon.png) -!-_ **Filters** the Table's Visible Data And Provides More Buttons Above Table.
 > > These Buttons Share the Filtering Specifications Available Associated to the Category <br/>
 > > by Which _This - 'F'_ - Button was Pressed. <br/>
 > > _"Status_ : | : _"Floor Rep." | "Trainee" | "General Manager" | ect._ <br/>
