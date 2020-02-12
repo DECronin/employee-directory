@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import API from "../../utils/API";
-import { Button, Table } from 'reactstrap';
+import Table from 'react-bootstrap/Table';
+import {Button} from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class Directory extends Component {
     state = {
@@ -39,24 +41,33 @@ class Directory extends Component {
         })
         return newArray
     };
-    sort = (col1, col2) => {
+    sortArray = (col1, col2) => {
         let data = this.state.currentEmployees;
         let sortedData;
-        if(col2 && data){// && Number.isInteger(data[0][col1][col2])
-            sortedData = data.sort(function(obj1, obj2) {
-                let num = Number.isInteger(data[0][col1][col2])? obj1[col1][col2] - obj2[col1][col2] : obj1[col1][col2].charCodeAt(0) - obj2[col1][col2].charCodeAt(0)
-                return num;
-            })            
-        } else if (data) {
-            sortedData = data.sort(function(obj1, obj2) {
-                return (
-                    obj1[col1] - obj2[col1]
-                );
-            })
-        };
-        if (sortedData.length > 0) {
-            this.setState({currentEmployees: sortedData});
-        }
+            if(col2 && data){
+                sortedData = data.sort(function(obj1, obj2) {
+                    let num = Number.isInteger(data[0][col1][col2]) ? obj1[col1][col2] - obj2[col1][col2] : obj1[col1][col2].charCodeAt(0) - obj2[col1][col2].charCodeAt(0);
+                    return num;
+                })  ;  
+                sortedData = sortedData.sort(function(obj1, obj2) {
+                    let num = Number.isInteger(data[0][col1][col2]) ? obj1[col1][col2] - obj2[col1][col2] : obj1[col1][col2].charCodeAt(1) - obj2[col1][col2].charCodeAt(1);
+                    return num;
+                }) ; 
+                sortedData = sortedData.sort(function(obj1, obj2) {
+                    let num = Number.isInteger(data[0][col1][col2]) ? obj1[col1][col2] - obj2[col1][col2] : obj1[col1][col2].charCodeAt(2) - obj2[col1][col2].charCodeAt(2);
+                    return num;
+                })          
+            } else if (data) {
+                sortedData = data.sort(function(obj1, obj2) {
+                    return (
+                        obj1[col1] - obj2[col1]
+                    );
+                })
+            };
+            if (sortedData.length > 0) {
+                this.setState({currentEmployees: sortedData});
+            }
+
     };
     filter = comp => {
         let col1;
@@ -67,7 +78,7 @@ class Directory extends Component {
         }
         let data = this.state.currentEmployees;
         let filteredData;
-        filteredData = data.filter(e => e[col1][col2] === comp)          
+        filteredData = Number.isInteger(comp) ? data.filter(e => e[col1][col2] === comp) : data.filter(e => parseInt(e.phone.substring(1, 5)) === comp);          
         if (filteredData.length > 0){
             this.setState({currentEmployees: filteredData, filterSpecs: [], filterOptions: []})
         }
@@ -76,25 +87,39 @@ class Directory extends Component {
         let options = [];
         let push = false;
         let indexCounter = 0
-        this.state.currentEmployees.forEach(em => {
-            let arLength = this.state.currentEmployees.length;
-            if(!options.includes(em[col1][col2])){
-                options.push(em[col1][col2])
-            }
-            indexCounter++;
-            if (indexCounter === arLength){
-                push = true
-            }
-        })
+        if (col2 === 5){
+            this.state.currentEmployees.forEach(em => {
+                const areaCode = parseInt(`${em.phone[1]}${em.phone[2]}${em.phone[3]}`);
+                let arLength = this.state.currentEmployees.length;
+                if(!options.includes(areaCode)){
+                    options.push(areaCode)
+                }
+                indexCounter++;
+                if (indexCounter === arLength){
+                    push = true
+                }
+            })
+        } else {
+            this.state.currentEmployees.forEach(em => {
+                let arLength = this.state.currentEmployees.length;
+                if(!options.includes(em[col1][col2])){
+                    options.push(em[col1][col2])
+                }
+                indexCounter++;
+                if (indexCounter === arLength){
+                    push = true
+                }
+            })
+        }
         if (push) {
             this.setState({filterOptions: options, filterSpecs: [col1, col2], filtersVisible: true})
         }
     };
     opFiltersDiv = () => {
-        let opList = [<Button onClick={() => this.reset()}>Reset</Button>];
+        let opList = [<Button className="btn"  color="info" onClick={() => this.reset()}>Reset</Button>];
         this.state.filterOptions.forEach(li => {
             opList.push(
-                <Button key={li} onClick={() => this.filter(li)}>{li}</Button>
+                <Button className="btn" key={li} onClick={() => this.filter(li)}>{li}</Button>
             )
         })
         if (this.state.filterOptions.length === opList.length - 1){
@@ -103,7 +128,7 @@ class Directory extends Component {
     }
     opDisplayRenderings = (type, c1, c2) => {
         return (<div>
-                <Button id={`${type}Display`} onClick={() => this.filterOptions(c1, c2)} type="button">F</Button>
+                <Button className="btn btnHd" id={`${type}Display`} onClick={() => this.filterOptions(c1, c2)} type="button">{type}: <FontAwesomeIcon icon="filter" /></Button>
             </div>)
     };
     reset() {
@@ -140,15 +165,15 @@ class Directory extends Component {
             <Table striped bordered hover variant="dark">
                 <thead>
                     <tr>
-                        <th>ID: <Button onClick={() => this.sort('index')}>S</Button></th>
-                        <th>Username:</th>
-                        <th>Name: (Last, First) <Button onClick={() => this.sort('name', 'last')} >S</Button> </th>
-                        <th>Status: {this.opDisplayRenderings('Status', 'stats', 'status')}</th>
-                        <th>Department: {this.opDisplayRenderings('Dept', 'stats', 'department')}</th>
-                        <th>Location: {this.opDisplayRenderings('Loc', 'location', 'city')}</th>
-                        <th>Phone:</th>
-                        <th>Email:</th>
-                        <th>Age: <Button onClick={() => this.sort('dob', 'age')}>S</Button> </th>
+                        <th><Button className="btn btnHd" onClick={() => this.sortArray('index')}>ID: <FontAwesomeIcon icon="sort-numeric-down" /></Button></th>
+                        <th><Button className="btn btnHd" onClick={() => this.sortArray('login', 'username')}>Username: <FontAwesomeIcon icon="sort-alpha-down" /></Button></th>
+                        <th><Button className="btn btnHd" onClick={() => this.sortArray('name', 'last')}>Name: <FontAwesomeIcon icon="sort-alpha-down" /><i id="name-ital"> (Last, First)</i></Button></th>
+                        <th>{this.opDisplayRenderings('Status', 'stats', 'status')}</th>
+                        <th>{this.opDisplayRenderings('Department', 'stats', 'department')}</th>
+                        <th>{this.opDisplayRenderings('Location', 'location', 'city')}</th>
+                        <th>{this.opDisplayRenderings('Phone', 'phone', 5)}</th>
+                        <th><Button className="btn btnHd" onClick={() => this.sortArray('email')}>Email: <FontAwesomeIcon icon="sort-alpha-down" /></Button></th>
+                        <th><Button className="btn btnHd" onClick={() => this.sortArray('dob', 'age')}>Age: <FontAwesomeIcon icon="sort-numeric-down" /></Button></th>
                     </tr>
                 </thead>
                 <tbody>
