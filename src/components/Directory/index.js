@@ -45,7 +45,9 @@ class Directory extends Component {
         // remove forign characters
         if(a.includes("@")){
             a = a.replace(/"."/g, '');
+            a = a.replace("@examplecom", '');
             b = b.replace(/"."/g, '');
+            b = b.replace("@examplecom", '');
         }
         const maxLength = a.length > b.length ? b.length : a.length;
         for (let i = 0; i < maxLength;){
