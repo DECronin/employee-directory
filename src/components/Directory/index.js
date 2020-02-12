@@ -85,7 +85,8 @@ class Directory extends Component {
             col2 = this.state.filterSpecs[1];
         }
         let  data = this.state.currentEmployees;
-        let filteredData = Number.isInteger(comp) ? data.filter(e => parseInt(e.phone.substring(1, 5)) === comp) : data.filter(e => e[col1][col2] === comp);         
+        let areaCode =  parseInt(comp.substring(1, 5));
+        let filteredData = Number.isInteger(areaCode) ? data.filter(e => parseInt(e.phone.substring(1, 5)) === areaCode) : data.filter(e => e[col1][col2] === comp);         
         if (filteredData.length > 0){
             this.setState({currentEmployees: filteredData, filterSpecs: [], filterOptions: []})
         }
@@ -96,7 +97,7 @@ class Directory extends Component {
         let indexCounter = 0;
         if (col2 === 5){
             this.state.currentEmployees.forEach(em => {
-                const areaCode = parseInt(`${em.phone[1]}${em.phone[2]}${em.phone[3]}`);
+                const areaCode = `(${em.phone[1]}${em.phone[2]}${em.phone[3]})`;
                 let arLength = this.state.currentEmployees.length;
                 if(!options.includes(areaCode)){
                     options.push(areaCode)
