@@ -41,24 +41,33 @@ class Directory extends Component {
         })
         return newArray
     };
+    alphebetizeStrings = (a, b) => {
+        const maxLength = a.length > b.length ? b.length : a.length;
+        for (let i = 0; i < maxLength;){
+            let x = a.charCodeAt(i);
+            let y = b.charCodeAt(i);
+            if (x === y){
+                i++
+            } else {
+                return x - y
+            }
+        }
+    }
     sortArray = (col1, col2) => {
         let data = this.state.currentEmployees;
         let sortedData;
-            if(col2 && data){
-                sortedData = data.sort(function(obj1, obj2) {
-                    let num = Number.isInteger(data[0][col1][col2]) ? obj1[col1][col2] - obj2[col1][col2] : obj1[col1][col2].charCodeAt(0) - obj2[col1][col2].charCodeAt(0);
-                    return num;
-                });        
-            } else if (data) {
-                sortedData = data.sort(function(obj1, obj2) {
-                    return (
-                        obj1[col1] - obj2[col1]
-                    );
-                })
-            };
-            if (sortedData.length > 0) {
-                this.setState({currentEmployees: sortedData});
-            }
+        if(col2 && data){ 
+            sortedData = Number.isInteger(data[0][col1][col2]) ? data.sort((obj1, obj2) => (obj1[col1][col2] - obj2[col1][col2])) : data.sort((a, b) => this.alphebetizeStrings(a[col1][col2], b[col1][col2]))
+        } else if (data) {
+            sortedData = data.sort(function(obj1, obj2) {
+                return (
+                    obj1[col1] - obj2[col1]
+                );
+            })
+        };
+        if (sortedData.length > 0) {
+            this.setState({currentEmployees: sortedData});
+        }
 
     };
     filter = comp => {
