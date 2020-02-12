@@ -11,7 +11,7 @@
 > > These Buttons Share the Filtering Specifications Available Associated to the Category <br/>
 > > by Which _This - 'F'_ - Button was Pressed. <br/>
 > > _"Status_ : | : _"Floor Rep." | "Trainee" | "General Manager" | ect._ <br/>
-> > > ~~=(~~ _You Can Also Sort By AreaCode_ ~~)=~~
+> > > ~~=(~~ _You Can Also Filter By AreaCode_ ~~)=~~
 
 >  **~~>>~~ These Sorting and Filtering Processes _Can_ Be 'Nested' or Repeated ~~<<~~** 
 
