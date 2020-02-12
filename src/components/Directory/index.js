@@ -42,10 +42,18 @@ class Directory extends Component {
         return newArray
     };
     alphebetizeStrings = (a, b) => {
+        // remove forign characters
+        if(a.includes("@")){
+            a = a.replace(/"."/g, '');
+            b = b.replace(/"."/g, '');
+        }
         const maxLength = a.length > b.length ? b.length : a.length;
         for (let i = 0; i < maxLength;){
             let x = a.charCodeAt(i);
             let y = b.charCodeAt(i);
+            // Test if character is number (such as in email or username)
+            // let x = Number.isInteger(parseInt(a.charCodeAt(i))) ? a[i] : a.charCodeAt(i);
+            // let y = Number.isInteger(parseInt(b.charCodeAt(i)) ? b[i] : b.charCodeAt(i);
             if (x === y){
                 i++
             } else {
@@ -59,11 +67,8 @@ class Directory extends Component {
         if(col2 && data){ 
             sortedData = Number.isInteger(data[0][col1][col2]) ? data.sort((obj1, obj2) => (obj1[col1][col2] - obj2[col1][col2])) : data.sort((a, b) => this.alphebetizeStrings(a[col1][col2], b[col1][col2]))
         } else if (data) {
-            sortedData = data.sort(function(obj1, obj2) {
-                return (
-                    obj1[col1] - obj2[col1]
-                );
-            })
+            sortedData = Number.isInteger(data[0][col1]) ? data.sort((obj1, obj2) => (obj1[col1] - obj2[col1])) : data.sort((a, b) => this.alphebetizeStrings(a[col1], b[col1]))
+
         };
         if (sortedData.length > 0) {
             this.setState({currentEmployees: sortedData});
@@ -71,17 +76,14 @@ class Directory extends Component {
 
     };
     filter = comp => {
-        console.log(`CLICK +:+ comp::: ${comp}`);
         let col1;
         let col2;
         if (this.state.filterSpecs){
             col1 = this.state.filterSpecs[0];
             col2 = this.state.filterSpecs[1];
         }
-        console.log(`c1 ${col1} || c2 ${col2}`);
         let  data = this.state.currentEmployees;
         let filteredData = Number.isInteger(comp) ? data.filter(e => parseInt(e.phone.substring(1, 5)) === comp) : data.filter(e => e[col1][col2] === comp);         
-        console.log(`FD:: \n${filteredData}`);
         if (filteredData.length > 0){
             this.setState({currentEmployees: filteredData, filterSpecs: [], filterOptions: []})
         }
