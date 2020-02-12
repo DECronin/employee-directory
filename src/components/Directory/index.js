@@ -48,15 +48,7 @@ class Directory extends Component {
                 sortedData = data.sort(function(obj1, obj2) {
                     let num = Number.isInteger(data[0][col1][col2]) ? obj1[col1][col2] - obj2[col1][col2] : obj1[col1][col2].charCodeAt(0) - obj2[col1][col2].charCodeAt(0);
                     return num;
-                })  ;  
-                sortedData = sortedData.sort(function(obj1, obj2) {
-                    let num = Number.isInteger(data[0][col1][col2]) ? obj1[col1][col2] - obj2[col1][col2] : obj1[col1][col2].charCodeAt(1) - obj2[col1][col2].charCodeAt(1);
-                    return num;
-                }) ; 
-                sortedData = sortedData.sort(function(obj1, obj2) {
-                    let num = Number.isInteger(data[0][col1][col2]) ? obj1[col1][col2] - obj2[col1][col2] : obj1[col1][col2].charCodeAt(2) - obj2[col1][col2].charCodeAt(2);
-                    return num;
-                })          
+                });        
             } else if (data) {
                 sortedData = data.sort(function(obj1, obj2) {
                     return (
@@ -70,15 +62,17 @@ class Directory extends Component {
 
     };
     filter = comp => {
+        console.log(`CLICK +:+ comp::: ${comp}`);
         let col1;
         let col2;
         if (this.state.filterSpecs){
             col1 = this.state.filterSpecs[0];
             col2 = this.state.filterSpecs[1];
         }
-        let data = this.state.currentEmployees;
-        let filteredData;
-        filteredData = Number.isInteger(comp) ? data.filter(e => e[col1][col2] === comp) : data.filter(e => parseInt(e.phone.substring(1, 5)) === comp);          
+        console.log(`c1 ${col1} || c2 ${col2}`);
+        let  data = this.state.currentEmployees;
+        let filteredData = Number.isInteger(comp) ? data.filter(e => parseInt(e.phone.substring(1, 5)) === comp) : data.filter(e => e[col1][col2] === comp);         
+        console.log(`FD:: \n${filteredData}`);
         if (filteredData.length > 0){
             this.setState({currentEmployees: filteredData, filterSpecs: [], filterOptions: []})
         }
@@ -86,7 +80,7 @@ class Directory extends Component {
     filterOptions = (col1, col2) => {
         let options = [];
         let push = false;
-        let indexCounter = 0
+        let indexCounter = 0;
         if (col2 === 5){
             this.state.currentEmployees.forEach(em => {
                 const areaCode = parseInt(`${em.phone[1]}${em.phone[2]}${em.phone[3]}`);
@@ -116,7 +110,7 @@ class Directory extends Component {
         }
     };
     opFiltersDiv = () => {
-        let opList = [<Button className="btn"  color="info" onClick={() => this.reset()}>Reset</Button>];
+        let opList = [<Button className="btn" key="reset" color="info" onClick={() => this.reset()}>Reset</Button>];
         this.state.filterOptions.forEach(li => {
             opList.push(
                 <Button className="btn" key={li} onClick={() => this.filter(li)}>{li}</Button>
