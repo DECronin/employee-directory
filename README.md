@@ -5,7 +5,7 @@
 
 ## **How To Use:**
 > _"S"_ -!- Button **Sorts** the Table's Visible Data By the Associating Category 
-> >_In Assending Order : | : 1 -> 2 | A -> Z ~~-(~~ Up to the first **3** letters. )_
+> >_In Assending Order : | : 1 -> 2 | A -> Z_
 
 > _"F"_ -!- Button **Filters** Through the Table's Visible Data And Provides More Buttons Above Table.
 > > These Buttons Share the Filtering Specifications Available Associated to the Category <br/>
