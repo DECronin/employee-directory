@@ -5,12 +5,13 @@
 
 ## **How To Use:**
 > _"S"_ -!- Button **Sorts** the Table's Visible Data By the Associating Category 
-> >_In Assending Order : | : 1 -> 2 | A -> Z_
+> >_In Assending Order : | : 1 -> 2 | A -> Z ~~-(~~ Up to the first **3** letters. )_
 
 > _"F"_ -!- Button **Filters** Through the Table's Visible Data And Provides More Buttons Above Table.
 > > These Buttons Share the Filtering Specifications Available Associated to the Category <br/>
 > > by Which _This - 'F'_ - Button was Pressed. <br/>
-> > _"Status_ : | : _"Floor Rep." | "Trainee" | "General Manager" | ect._
+> > _"Status_ : | : _"Floor Rep." | "Trainee" | "General Manager" | ect._ <br/>
+> > > ~~=(~~ _You Can Also Sort By AreaCode_ ~~)=~~
 
 >  **~~>>~~ These Sorting and Filtering Processes _Can_ Be 'Nested' or Repeated ~~<<~~** 
 
@@ -23,6 +24,7 @@
 - [Node.js](https://nodejs.org/en/)
 - [Bootstrap :|: _reactstrap npm_](https://reactstrap.github.io/)
 - [Heroku](https://www.heroku.com/home)
-- [Axios](https://www.npmjs.com/package/axios)
-- [Random User Generator ~~:|: API~~](https://randomuser.me/)
-- [_Visual Studio Code_ ~~:|: _Editor_~~](https://code.visualstudio.com/)
+- [Axios :|: _npm_](https://www.npmjs.com/package/axios)
+- [Random User Generator :|: _API_](https://randomuser.me/)
+- [Font Awesome Icons :|: _npm_](https://www.npmjs.com/package/@fortawesome/react-fontawesome)
+- [_Visual Studio Code_ :|: _Editor_](https://code.visualstudio.com/)
