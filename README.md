@@ -25,10 +25,10 @@
 <br>~~========================================================~~
 
 ### Resources:
-- [**React.js**](https://reactjs.org/)
-- [Node.js](https://nodejs.org/en/)
+- [**React.js** :|: _Major Library / UI Structure_](https://reactjs.org/)
+- [Node.js :|: _Environment Automation & Package Translator_](https://nodejs.org/en/)
 - [Bootstrap :|: _reactstrap npm_](https://reactstrap.github.io/)
-- [Heroku](https://www.heroku.com/home)
+- [Heroku :|: _Hosting Platform_](https://www.heroku.com/home)
 - [Axios :|: _npm_](https://www.npmjs.com/package/axios)
 - [Random User Generator :|: _API_](https://randomuser.me/)
 - [Font Awesome Icons :|: _npm_](https://www.npmjs.com/package/@fortawesome/react-fontawesome)
