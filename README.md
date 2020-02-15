@@ -18,6 +18,11 @@
 > _"Reset"_ -!- Button Returns the Current Table Back to its Original State _(containing the same data)_.
 
 ### Demonstration(s):
+~~===============================================================~~<br>
+![navigation-gif-1](./public/nav-gif-1.gif)
+<br>~~===============================================================~~<br>
+![navigation-gif-2](./public/nav-gif-2.gif)
+<br>~~===============================================================~~
 
 ### Resources:
 - [**React.js**](https://reactjs.org/)
