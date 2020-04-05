@@ -1,5 +1,5 @@
 # [**Employee Directory**](https://decronin-employeedirectory.herokuapp.com/) :|: [*Template*]
-### By: [**Dana Cronin**](decronin.github.io)
+### By: [**Dana Cronin**](https://decronin.herokuapp.com/)
 
 ### [_Concept / Requirements:_](https://github.com/UCF-Coding-Boot-Camp/UCF-LKM-FSF-PT-08-2019-U-C/tree/master/new_curriculum/19-React/02-Homework)
 
